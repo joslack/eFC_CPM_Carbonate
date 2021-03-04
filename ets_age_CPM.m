@@ -12,9 +12,10 @@ clc
 
 
 
-n = 214;
+n = 200;
 dropframes = 50;
-
+halfn = n/2;
+idxnodes = [0,ones(1,halfn),0,ones(1,halfn),zeros(1,14)] > 0;
 % load in activity data
 load('nki_peaks');
 subs = unique(subjid);
@@ -40,7 +41,7 @@ for i = 1:length(subs)        % loop over all subjects
        
         
         z = ...                                         % z-score time series
-            zscore(parcel_time{1}(dropframes + 1:end - dropframes,:));
+            zscore(parcel_time{1}(dropframes + 1:end - dropframes,idxnodes));
         %             ets = fcn_edgets(z);                            % calculate ets
         %             r = sum(ets.^2,2).^0.5;                         % calculate rss
         %             R(:,i) = r;                                     % store rss
